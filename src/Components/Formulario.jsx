@@ -1,25 +1,70 @@
 import {useState} from 'react'
 
 export const Formulario = () => {
-  return (
-   <form>
-  <div className="form-group">
-    <label htmlForfor="username">User Name</label>
 
-    <input type="email" 
+  const [formState, setFormState] = useState({
+    username : '',
+    email : '',
+    password : ''
+  })
+
+  const { username, email, password } = formState;
+
+  const handleForm = ( event ) => {
+    const { name, value } = event.target;
+    setFormState({
+      ...formState,
+      [name] : value
+    })
+  }
+
+  const onSubmitForm = (event) => {
+      event.preventDefault()
+      console.log(formState)
+      setFormState({
+        username : '',
+        password : '',
+        email : ''
+      })
+  }
+
+  return (
+   <form onSubmit={ onSubmitForm }>
+  <div className="form-group">
+    <label htmlFor="username">User Name</label>
+
+    <input type="text" 
            className="form-control" 
            name="username" 
-           placeholder="Enter Username"/>
-
+           placeholder="Enter Username"   
+           value={ username }
+           onChange={ handleForm }
+    />
   </div>
 
   <div className="form-group">
-    <label htmlForfor="password">Password</label>
+    <label htmlFor="password">Password</label>
 
     <input type="password" 
            className="form-control" 
-           id="password" 
-           placeholder="Password"/>
+           name="password" 
+           placeholder="Password" 
+           value={ password }
+           onChange={ handleForm }      
+    />
+  </div>
+
+  <div className="form-group">
+    <label htmlFor="email">Email</label>
+
+    <input type="email" 
+           className="form-control" 
+           name="email" 
+           placeholder="Email"
+           value={ email }
+           onChange={ handleForm }
+            
+    />
   </div>
   <button type="submit" className="btn btn-primary">Submit</button>
 </form>
